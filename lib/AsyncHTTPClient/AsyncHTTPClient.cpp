@@ -3,7 +3,7 @@
 static AsyncClient * aClient = NULL;
 
 // async HTTP client
-void sendHTTP(String requestBody, char * responseBody, const char * httpHost)
+void sendHTTP(String requestBody, const char * httpHost)
 {
 
   if(aClient)//client already exists
@@ -16,7 +16,7 @@ void sendHTTP(String requestBody, char * responseBody, const char * httpHost)
     delete client;
   }, NULL);
 
-  aClient->onConnect([requestBody, responseBody](void * arg, AsyncClient * client){
+  aClient->onConnect([requestBody](void * arg, AsyncClient * client){
 
     Serial.println("Connected!");
 
@@ -34,7 +34,8 @@ void sendHTTP(String requestBody, char * responseBody, const char * httpHost)
       delete c;
     }, NULL);
 
-    client->onData([responseBody](void * arg, AsyncClient * c, void * data, size_t len){
+    /*
+    client->onData([](void * arg, AsyncClient * c, void * data, size_t len){
       String response = "";
       String body = "";
       Serial.print("\r\nReceived data: ");
@@ -46,7 +47,7 @@ void sendHTTP(String requestBody, char * responseBody, const char * httpHost)
       //body.toCharArray(responseBody, body.length());
       Serial.println(responseBody);
     }, NULL);
-
+    */
   }, NULL);
 
   if(!aClient->connect(httpHost, 80)){

@@ -2,3 +2,7 @@
 .piolibdeps
 .clang_complete
 .gcc-flags.json
+config.h
+config.php
+*.mp4
+
